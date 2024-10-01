@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>José Antonio & Jussara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'love-light': '#FFD1DC',
+                        'love-medium': '#FF69B4',
+                        'love-dark': '#FF1493',
+                        'passion': '#FF0000',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-image {
+            background-image: url('img/fondo\ \(2\).jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .timeline-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        @media (min-width: 640px) {
+            .memory-card {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        .memory-card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .memory-card.flipped .memory-card-inner {
+            transform: rotateY(180deg);
+        }
+        .memory-card-front, .memory-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .memory-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="font-sans scroll-smooth" x-data="{ menuOpen: false }">
+    <header class="bg-gradient-to-r from-love-medium to-love-dark text-white p-4 fixed w-full z-50">
+        <nav class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold">J&J24</h1>
+            <button @click="menuOpen = !menuOpen" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <ul class="hidden md:flex space-x-4">
+                <li><a href="#inicio" class="hover:text-love-light transition duration-300">Inicio</a></li>
+                <li><a href="#nuestra-historia" class="hover:text-love-light transition duration-300">Nuestra Historia</a></li>
+                <li><a href="#momentos" class="hover:text-love-light transition duration-300">Momentos Especiales</a></li>
+                <li><a href="#galeria" class="hover:text-love-light transition duration-300">Galería</a></li>
+                <li><a href="#juego" class="hover:text-love-light transition duration-300">Juego de Memoria</a></li>
+                <li><a href="#comentarios" class="hover:text-love-light transition duration-300">Comentarios</a></li>
+            </ul>
+        </nav>
+        <div x-show="menuOpen" class="md:hidden">
+            <ul class="bg-love-dark mt-2 p-2 rounded">
+                <li><a @click="menuOpen = false" href="#inicio" class="block py-2 hover:bg-love-medium">Inicio</a></li>
+                <li><a @click="menuOpen = false" href="#nuestra-historia" class="block py-2 hover:bg-love-medium">Nuestra Historia</a></li>
+                <li><a @click="menuOpen = false" href="#momentos" class="block py-2 hover:bg-love-medium">Momentos Especiales</a></li>
+                <li><a @click="menuOpen = false" href="#galeria" class="block py-2 hover:bg-love-medium">Galería</a></li>
+                <li><a @click="menuOpen = false" href="#juego" class="block py-2 hover:bg-love-medium">Juego de Memoria</a></li>
+                <li><a @click="menuOpen = false" href="#comentarios" class="block py-2 hover:bg-love-medium">Comentarios</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="bg-image h-screen flex items-center justify-center">
+            <div class="bg-black bg-opacity-50 p-4 md:p-8 rounded-lg text-white text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Nuestra Historia de Amor</h2>
+                <p class="text-lg md:text-xl mb-4">Juntos desde hace <span id="dias-juntos" class="font-bold text-love-light"></span> días</p>
+                <a href="#nuestra-historia" class="bg-love-medium hover:bg-love-dark text-white font-bold py-2 px-4 rounded transition duration-300">Descubre Nuestra Historia</a>
+            </div>
+        </section>
+
+        <section id="nuestra-historia" class="bg-gradient-to-r from-love-light to-white py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Nuestra Historia</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-xl timeline-item">
+                        <h3 class="text-xl md:text-2xl font-semibold mb-2 text-love-medium">Cómo nos conocimos</h3>
+                        <p>Un 03 Junio ingresaba a primero de secundaria, un compañero me sento adelante, ella se sentaba ahi, la vi pasar y desde ahí, entendi que por mas alto que sea, yo siempre estaria a sus pies.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl timeline-item">
+                        <h3 class="text-xl md:text-2xl font-semibold mb-2 text-love-medium">Nuestra primera cita</h3>
+                        <p>24 de Marzo, en la playa entregandole cartas, paseando por los alrededores, riendonos, hablando.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="momentos" class="bg-white py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Momentos Especiales</h2>
+                <div class="relative">
+                    <div class="absolute h-full w-1 bg-love-medium left-1/2 transform -translate-x-1/2"></div>
+                    <div class="timeline-item-container">
+                        <!-- Momento 1 -->
+                        <div class="flex flex-col md:flex-row items-center mb-8">
+                            <div class="md:w-1/2 mb-4 md:mb-0 md:pr-8 text-center md:text-right">
+                                <h3 class="text-xl md:text-2xl font-semibold text-love-medium">Nuestro primer viaje</h3>
+                                <p>Un viaje a Chosica, comimos pollo a la parrilla, se olvidaron el aceite, comimos tarde, fuimos a la piscina, jugamos un rato, fue un dia cansado, pero divertido.</p>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <img src="img/1.jpg" alt="Primer viaje" class="rounded-full timeline-img mx-auto">
+                            </div>
+                        </div>
+                        <!-- Momento 2 -->
+                        <div class="flex flex-col md:flex-row items-center mb-8">
+                            <div class="md:w-1/2 mb-4 md:mb-0 md:pr-8 md:order-2 text-center md:text-left">
+                                <h3 class="text-xl md:text-2xl font-semibold text-love-medium">Primer beso</h3>
+                                <p>Recuerdo cuando me robaron, fui a su casa a que me cure las heridas, estaba lastimado y para calmarme recuerdo que me dio un beso, luego yo se lo devolvi, desde cuando una persona se pone feliz por que lo hayan robado?.</p>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8 md:order-1">
+                                <img src="img/7.jpg" alt="Primera casa" class="rounded-full timeline-img mx-auto">
+                            </div>
+                        </div>
+                        <!-- Añadir más momentos aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="bg-gradient-to-r from-love-light to-white py-16" x-data="{ activeImage: 0 }">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Galería de Fotos</h2>
+                <div class="relative">
+                    <div class="flex overflow-hidden">
+                        <template x-for="(image, index) in ['img/5.jpeg', 'img/6.jpeg', 'img/2.jpg', 'img/1.jpg']">
+                            <div x-show="activeImage === index" class="w-full flex-shrink-0 transition-all duration-300 ease-in-out">
+                                <img :src="image" :alt="'Foto ' + (index + 1)" class="w-full h-auto rounded-lg shadow-xl">
+                            </div>
+                        </template>
+                    </div>
+                    <button @click="activeImage = (activeImage - 1 + 4) % 4" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full">
+                        <svg class="w-6 h-6 text-love-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button @click="activeImage = (activeImage + 1) % 4" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full">
+                        <svg class="w-6 h-6 text-love-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="juego" class="bg-white py-16" x-data="memoryGame()">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Juego de Memoria</h2>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-4 max-w-xs sm:max-w-md mx-auto">
+                    <template x-for="(card, index) in cards" :key="index">
+                        <div class="memory-card" :class="{ 'flipped': card.flipped }" @click="flipCard(index)">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front bg-love-medium rounded-lg flex items-center justify-center">
+                                    <span class="text-white text-2xl sm:text-3xl">?</span>
+                                </div>
+                                <div class="memory-card-back bg-white rounded-lg">
+                                    <img :src="card.image" :alt="'Carta ' + (index + 1)" class="w-full h-full object-cover rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <p class="text-center mt-4">Intentos: <span x-text="attempts"></span></p>
+            </div>
+        </section>
+
+        <section id="comentarios" class="bg-gradient-to-r from-love-light to-white py-16" x-data="{ 
+            comentarios: JSON.parse(localStorage.getItem('comentarios')) || [], 
+            nuevoComentario: '', 
+            nombre: '', 
+            password: '', 
+            passwordInputVisible: false, 
+            commentToDelete: null 
+        }">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Comentarios</h2>
+                <form @submit.prevent="if(nuevoComentario.trim() && nombre.trim()) { 
+                    comentarios.push({nombre: nombre, texto: nuevoComentario, fecha: new Date().toLocaleString()}); 
+                    localStorage.setItem('comentarios', JSON.stringify(comentarios)); 
+                    nuevoComentario = ''; 
+                    nombre = ''; 
+                }" class="mb-8 bg-white p-6 rounded-lg shadow-xl">
+                    <input x-model="nombre" type="text" class="w-full p-2 border border-love-medium rounded mb-2" placeholder="Tu nombre" required>
+                    <textarea x-model="nuevoComentario" class="w-full p-2 border border-love-medium rounded mb-2" rows="3" placeholder="Deja tu comentario..." required></textarea>
+                    <button type="submit" class="bg-gradient-to-r from-love-medium to-love-dark text-white px-6 py-2 rounded hover:from-love-dark hover:to-passion transition duration-300">Enviar Comentario</button>
+                </form>
+                <ul class="space-y-4">
+                    <template x-for="(comentario, index) in comentarios.slice().reverse()" :key="comentario.fecha">
+                        <li class="bg-white p-4 rounded-lg shadow-md">
+                            <p class="font-bold text-love-dark" x-text="comentario.nombre"></p>
+                            <p x-text="comentario.texto"></p>
+                            <p class="text-sm text-gray-500 mt-2" x-text="comentario.fecha"></p>
+                            <button @click="commentToDelete = index; passwordInputVisible = true;" class="mt-2 text-red-500 hover:underline">Eliminar</button>
+                        </li>
+                    </template>
+                </ul>
+                
+                <!-- Cuadro para ingresar la contraseña -->
+                <div x-show="passwordInputVisible" class="mt-4">
+                    <input type="password" x-model="password" placeholder="Ingrese la contraseña" class="p-2 border border-love-medium rounded mb-2 w-full" />
+                    <button @click="if (password === 'joseabc123') { comentarios.splice(commentToDelete, 1); localStorage.setItem('comentarios', JSON.stringify(comentarios)); password = ''; commentToDelete = null; passwordInputVisible = false; } else { alert('Contraseña incorrecta'); }" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar Eliminación</button>
+                    <button @click="passwordInputVisible = false; password = '';" class="ml-2 text-gray-500 hover:underline">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        </main>
+    
+        <footer class="bg-love-dark text-white py-8">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2024 Nuestra Historia. Todos los derechos reservados a José Antonio & Jussara.</p>
+            </div>
+        </footer>
+    
+        <script>
+            function memoryGame() {
+                return {
+                    cards: [
+                        { image: 'img/5.jpeg', flipped: false },
+                        { image: 'img/6.jpeg', flipped: false },
+                        { image: 'img/4.jpg', flipped: false },
+                        { image: 'img/3.jpg', flipped: false },
+                        { image: 'img/2.jpg', flipped: false },
+                        { image: 'img/1.jpg', flipped: false },
+                        { image: 'img/6.jpeg', flipped: false },
+                        { image: 'img/7.jpg', flipped: false }
+                    ].flatMap(card => [card, {...card}]).sort(() => Math.random() - 0.5),
+                    flippedCards: [],
+                    attempts: 0,
+                    flipCard(index) {
+                        if (this.flippedCards.length === 2) return;
+                        if (!this.cards[index].flipped) {
+                            this.cards[index].flipped = true;
+                            this.flippedCards.push(index);
+                            if (this.flippedCards.length === 2) {
+                                this.attempts++;
+                                if (this.cards[this.flippedCards[0]].image === this.cards[this.flippedCards[1]].image) {
+                                    this.flippedCards = [];
+                                } else {
+                                    setTimeout(() => {
+                                        this.cards[this.flippedCards[0]].flipped = false;
+                                        this.cards[this.flippedCards[1]].flipped = false;
+                                        this.flippedCards = [];
+                                    }, 1000);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    
+            document.addEventListener('DOMContentLoaded', function() {
+                const startDate = new Date('2024-03-24'); // Cambia esta fecha por la fecha real de inicio de su relación
+                const today = new Date();
+                const diffTime = Math.abs(today - startDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                document.getElementById('dias-juntos').textContent = diffDays;
+    
+                gsap.registerPlugin(ScrollTrigger);
+    
+                gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+                    gsap.from(item, {
+                        opacity: 0,
+                        y: 50,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 80%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>
