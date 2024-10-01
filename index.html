@@ -125,7 +125,6 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Momentos Especiales</h2>
                 <div class="relative">
-                   
                     <div class="timeline-item-container">
                         <!-- Momento 1 -->
                         <div class="flex flex-col md:flex-row items-center mb-8">
@@ -203,38 +202,26 @@
             passwordInputVisible: false, 
             commentToDelete: null 
         }">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Comentarios</h2>
-                <form @submit.prevent="if(nuevoComentario.trim() && nombre.trim()) { 
-                    comentarios.push({nombre: nombre, texto: nuevoComentario, fecha: new Date().toLocaleString()}); 
-                    localStorage.setItem('comentarios', JSON.stringify(comentarios)); 
-                    nuevoComentario = ''; 
-                    nombre = ''; 
-                }" class="mb-8 bg-white p-6 rounded-lg shadow-xl">
-                    <input x-model="nombre" type="text" class="w-full p-2 border border-love-medium rounded mb-2" placeholder="Tu nombre" required>
-                    <textarea x-model="nuevoComentario" class="w-full p-2 border border-love-medium rounded mb-2" rows="3" placeholder="Deja tu comentario..." required></textarea>
-                    <button type="submit" class="bg-gradient-to-r from-love-medium to-love-dark text-white px-6 py-2 rounded hover:from-love-dark hover:to-passion transition duration-300">Enviar Comentario</button>
-                </form>
-                <ul class="space-y-4">
-                    <template x-for="(comentario, index) in comentarios.slice().reverse()" :key="comentario.fecha">
-                        <li class="bg-white p-4 rounded-lg shadow-md">
-                            <p class="font-bold text-love-dark" x-text="comentario.nombre"></p>
-                            <p x-text="comentario.texto"></p>
-                            <p class="text-sm text-gray-500 mt-2" x-text="comentario.fecha"></p>
-                            <button @click="commentToDelete = index; passwordInputVisible = true;" class="mt-2 text-red-500 hover:underline">Eliminar</button>
-                        </li>
-                    </template>
-                </ul>
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-love-dark">Comentarios</h2>
+        <form @submit.prevent="if(nuevoComentario.trim() && nombre.trim()) { 
+                comentarios.push({nombre: nombre, texto: nuevoComentario, fecha: new Date().toLocaleString()}); 
+                localStorage.setItem('comentarios', JSON.stringify(comentarios)); 
                 
-                <!-- Cuadro para ingresar la contraseña -->
-                <div x-show="passwordInputVisible" class="mt-4">
-                    <input type="password" x-model="password" placeholder="Ingrese la contraseña" class="p-2 border border-love-medium rounded mb-2 w-full" />
-                    <button @click="if (password === 'joseabc123') { comentarios.splice(commentToDelete, 1); localStorage.setItem('comentarios', JSON.stringify(comentarios)); password = ''; commentToDelete = null; passwordInputVisible = false; } else { alert('Contraseña incorrecta'); }" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar Eliminación</button>
-                    <button @click="passwordInputVisible = false; password = '';" class="ml-2 text-gray-500 hover:underline">Cancelar</button>
-                </div>
-            </div>
-        </section>
+                const message = encodeURIComponent(`Hola, te saluda ${nombre} y quiero decirte que ${nuevoComentario}`);
+                window.open(`https://wa.me/+51978725052?text=${message}`, '_blank'); // Abre WhatsApp con el mensaje
+                
+                nuevoComentario = ''; 
+                nombre = ''; 
+            }" class="mb-8 bg-white p-6 rounded-lg shadow-xl">
+            <input x-model="nombre" type="text" class="w-full p-2 border border-love-medium rounded mb-2" placeholder="Tu nombre" required>
+            <textarea x-model="nuevoComentario" class="w-full p-2 border border-love-medium rounded mb-2" rows="3" placeholder="Deja tu comentario..." required></textarea>
+            <button type="submit" class="bg-gradient-to-r from-love-medium to-love-dark text-white px-6 py-2 rounded hover:from-love-dark hover:to-passion transition duration-300">Enviar Comentario</button>
+        </form>
+    </div>
+</section>
 
+    
         </main>
     
         <footer class="bg-love-dark text-white py-8">
